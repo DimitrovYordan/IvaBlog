@@ -2,15 +2,32 @@
 {
     using System.Diagnostics;
 
+    using IvaBlog.Services.Data;
     using IvaBlog.Web.ViewModels;
-
+    using IvaBlog.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly IGetCountsService countsService;
+
+        public HomeController(IGetCountsService countsService)
+        {
+            this.countsService = countsService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var countsDto = this.countsService.GetCounts();
+            var viewModel = new IndexViewModel
+            {
+                CategoriesCount = countsDto.CategoriesCount,
+                ImagesCount = countsDto.ImagesCount,
+                IngredientsCount = countsDto.IngredientsCount,
+                RecipesCount = countsDto.RecipesCount,
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()
