@@ -8,11 +8,12 @@
     using IvaBlog.Data.Models;
     using IvaBlog.Data.Repositories;
     using IvaBlog.Data.Seeding;
+    using IvaBlog.Services.Data;
     using IvaBlog.Services.Mapping;
     using IvaBlog.Services.Messaging;
     using IvaBlog.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -20,24 +21,22 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
-    public class Program
+    public class Startup
     {
-        public static void Main(string[] args)
+        private readonly IConfiguration configuration;
+
+        public Startup(IConfiguration configuration)
         {
-            var builder = WebApplication.CreateBuilder(args);
-            ConfigureServices(builder.Services, builder.Configuration);
-            var app = builder.Build();
-            Configure(app);
-            app.Run();
+            this.configuration = configuration;
         }
 
-        private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options => options.UseSqlServer(this.configuration.GetConnectionString()));
 
-            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider
+                .AddRoles<ApplicationRole>().AddEntityFrameworkStores < Application);
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -52,9 +51,8 @@
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
-            services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddSingleton(configuration);
+            services.AddSingleton(this.configuration);
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -63,28 +61,32 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IGetCountsService, GetCountService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IRecipesService, RecipesService>();
         }
 
-        private static void Configure(WebApplication app)
+        // This method gets called by the runtime. Use this method to configure
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetType());
+
             // Seed data on application startup
-            using (var serviceScope = app.Services.CreateScope())
+            using (var serviceScope = app.ApplicationServices.CreateScope()) 
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<DbContext>();
                 dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope);
             }
 
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
-            if (app.Environment.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+                app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Home/Error");
                 app.UseHsts();
             }
 
@@ -97,9 +99,13 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-            app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapRazorPages();
+                });
         }
     }
 }
