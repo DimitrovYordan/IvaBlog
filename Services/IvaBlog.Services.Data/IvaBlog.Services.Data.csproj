@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\IvaBlog.Data.Common\IvaBlog.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\IvaBlog.Data.Models\IvaBlog.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\IvaBlog.Web.ViewModels\IvaBlog.Web.ViewModels.csproj" />
     <ProjectReference Include="..\IvaBlog.Services.Mapping\IvaBlog.Services.Mapping.csproj" />
   </ItemGroup>
 
