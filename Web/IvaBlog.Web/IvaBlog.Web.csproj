@@ -40,4 +40,8 @@
     <ProjectReference Include="..\IvaBlog.Web.Infrastructure\IvaBlog.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\IvaBlog.Web.ViewModels\IvaBlog.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Views\Dashboard\" />
+  </ItemGroup>
 </Project>
