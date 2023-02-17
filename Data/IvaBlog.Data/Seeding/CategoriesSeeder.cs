@@ -15,9 +15,9 @@
                 return;
             }
 
-            await dbContext.Categories.AddAsync(new Category { Name = "Сладкиши"});
-            await dbContext.Categories.AddAsync(new Category { Name = "Пилешко"});
-            await dbContext.Categories.AddAsync(new Category { Name = "Свинско"});
+            await dbContext.Categories.AddAsync(new Category { Name = "Сладкиши" });
+            await dbContext.Categories.AddAsync(new Category { Name = "Пилешко" });
+            await dbContext.Categories.AddAsync(new Category { Name = "Свинско" });
 
             await dbContext.SaveChangesAsync();
         }
