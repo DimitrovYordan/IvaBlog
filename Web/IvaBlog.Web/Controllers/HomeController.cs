@@ -22,7 +22,6 @@
             var viewModel = new IndexViewModel
             {
                 CategoriesCount = countsDto.CategoriesCount,
-                ImagesCount = countsDto.ImagesCount,
                 IngredientsCount = countsDto.IngredientsCount,
                 RecipesCount = countsDto.RecipesCount,
             };
