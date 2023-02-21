@@ -1,0 +1,73 @@
+﻿@model IvaBlog.Web.ViewModels.Recipes.SingleRecipeViewModel
+@{
+    this.ViewData["Title"] = Model.Name;
+}
+
+<div class="single-recipe-layout1">
+    <div class="ctg-name">@Model.CategoryName</div>
+    <h2 class="item-title">this.ViewData["Title"]</h2>
+    <div class="row mb-4">
+        <div class="col-xl-9 col-12">
+            <ul class="entry-meta">
+                <li class="single-meta">
+                    <i class="far fa-calendra-alt"></i>
+                    @Model.CreatedOn.ToShortDateString()
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="item-figure">
+        <img class="img-fluid w-100" src="@Model.ImageUrl" alt="@Model.Name" />
+        <ul>
+            <li>
+                <div class="feature-wrap">
+                    <div class="media">
+                        <div class="feature-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div class="media-body space-sm">
+                            <div class="feature-title">PREP TIME</div>
+                            <div class="feature-sub-title">@Model.PreparationTime.TotalMinutes Min</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="single-meta">
+                <ul class="item-rating">
+                    <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
+                    <li class="star-fill" data-vote="2"><i class="fas fa-star"></i></li>
+                    <li class="star-fill" data-vote="3"><i class="fas fa-star"></i></li>
+                    <li class="star-fill" data-vote="4"><i class="fas fa-star"></i></li>
+                    <li class="star-fill" data-vote="5"><i class="fas fa-star"></i></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<form method="post" id="antiForgeryForm"></form>
+
+@section Scripts {
+    <script>
+        $("li[data-vote]").each(function (el) {
+            $(this).click(function () {
+                var value = $(this).attr("data-vote");
+                var recipeId = @Model.Id;
+                var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
+                var data = { recipeId: recipeId, value: value };
+
+                $.ajax({
+                    type: "POST",
+                    url: "api/Votes",
+                    data: JSON.stringify(data),
+                    headers: {
+                        'X-CSRF-TOKEN': antiForgeryToken,
+                    },
+                    success: function (data) {
+                        $('#averageVoteValue').html(data.averageVote.toFixed(1));
+                    },
+                    contentType: 'application/json',
+                });
+            })
+        });
+    </script>
+}
