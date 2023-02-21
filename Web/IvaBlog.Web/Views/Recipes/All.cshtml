@@ -1,0 +1,49 @@
+﻿@model IvaBlog.Web.ViewModels.Recipes.RecipeListViewModel
+@{
+    this.ViewData["Title"] = "All recipies";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+@foreach(var recipe in this.Model.Recipes)
+{
+    <div class="media col-md-3">
+        <img src="@recipe.ImageUrl" width="100" class="mr-3" />
+        <div class="media-body">
+            <h5 class="mt-0"><a asp-action="ById" asp-route-id="@recipe.Id" >@recipe.Name</a></h5>
+            @recipe.CategoryName
+        </div>
+    </div>
+}
+
+<hr />
+<nav aria-label="">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @if (!Model.HasPreviousPage) { <text>disabled</text> } ">
+            <span class="page-link" asp-action="All" asp-route-id="@Model.PreviousPageNumber">Prev</span>
+        </li>
+        @for (int i = Model.PageNumber - 3; i < Model.PageNumber; i++)
+        {
+            if (i > 0)
+            {
+                <li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>
+            }
+        }
+        <li class="page-item active" aria-current="page">
+            <span class="page-link">
+                @Model.PageNumber
+                <span class="sr-only">(current)</span>
+            </span>
+        </li>
+        @for (int i = Model.PageNumber + 1; i < Model.PageNumber + 3; i++)
+        {
+            if (i <= Model.PagesCount)
+            {
+                <li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>
+            }
+        }
+        <li class="page-item @if (!Model.HasNextPage) { <text>disabled</text> } ">
+            <a class="page-link" asp-action="All" asp-route-id="@Model.NextPageNumber">Next</a>
+        </li>
+    </ul>
+</nav>
