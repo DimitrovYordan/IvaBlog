@@ -1,11 +1,14 @@
 ﻿namespace IvaBlog.Services.Data
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
     using IvaBlog.Data.Common.Repositories;
     using IvaBlog.Data.Models;
+    using IvaBlog.Services.Mapping;
     using IvaBlog.Web.ViewModels.RecipeViewModel;
 
     public class RecipesService : IRecipesService
@@ -21,7 +24,7 @@
             this.ingredientRepository = ingredientRepository;
         }
 
-        public async Task CreateAsync(CreateRecipeInputModel input)
+        public async Task CreateAsync(CreateRecipeInputModel input, string userId, string imagePath)
         {
             var recipe = new Recipe
             {
@@ -31,6 +34,7 @@
                 Name = input.Name,
                 PortionsCount = input.PortionsCount,
                 PreparationTime = TimeSpan.FromMinutes(input.PreparationTime),
+                AddedByUserId = userId,
             };
 
             foreach (var inputIngredient in input.Ingredients)
@@ -48,8 +52,59 @@
                 });
             }
 
+            var allowedExtensions = new[] { "png", "jpg", "gif" };
+
+            foreach (var image in input.Images)
+            {
+                var extension = Path.GetExtension(image.FileName).TrimStart('.');
+                if (!allowedExtensions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new Image
+                {
+                    AddedByUserId = userId,
+                    Extension = extension,
+                };
+
+                recipe.Images.Add(dbImage);
+
+                Directory.CreateDirectory($"{imagePath}/recipes/");
+                var path = $"{imagePath}/recipes/{dbImage.Id}.{extension}";
+
+                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+            }
+
             await this.recipesRepository.AddAsync(recipe);
             await this.recipesRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
+        {
+            var recipes = this.recipesRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .To<T>()
+                .ToList();
+
+            return recipes;
+        }
+
+        public T GetById<T>(int id)
+        {
+            var recipe = this.recipesRepository.AllAsNoTracking().Where(x => x.Id == id)
+                .To<T>().FirstOrDefault();
+
+            return recipe;
+        }
+
+        public int GetCount()
+        {
+            return this.recipesRepository.All().Count();
         }
     }
 }
