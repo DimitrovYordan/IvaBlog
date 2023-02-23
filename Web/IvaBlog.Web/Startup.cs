@@ -12,6 +12,7 @@
     using IvaBlog.Services.Mapping;
     using IvaBlog.Services.Messaging;
     using IvaBlog.Web.ViewModels;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -70,6 +71,7 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IRecipesService, RecipesService>();
             services.AddTransient<IVotesService, VotesService>();
+            services.AddTransient<IIngredientsService, IngredientsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure
