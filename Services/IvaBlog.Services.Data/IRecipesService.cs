@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using IvaBlog.Web.ViewModels.Recipes;
     using IvaBlog.Web.ViewModels.RecipeViewModel;
 
     public interface IRecipesService
@@ -11,8 +12,16 @@
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
+        IEnumerable<T> GetRandom<T>(int count);
+
         int GetCount();
 
         T GetById<T>(int id);
+
+        Task UpdateAsync(int id, EditRecipeInputModel input);
+
+        IEnumerable<T> GetByIngredients<T>(IEnumerable<int> ingredientsIds);
+
+        Task DeleteAsync(int id);
     }
 }

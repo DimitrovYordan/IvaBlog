@@ -9,6 +9,7 @@
     using IvaBlog.Data.Common.Repositories;
     using IvaBlog.Data.Models;
     using IvaBlog.Services.Mapping;
+    using IvaBlog.Web.ViewModels.Recipes;
     using IvaBlog.Web.ViewModels.RecipeViewModel;
 
     public class RecipesService : IRecipesService
@@ -54,6 +55,8 @@
 
             var allowedExtensions = new[] { "png", "jpg", "gif" };
 
+            Directory.CreateDirectory($"{imagePath}/recipes/");
+
             foreach (var image in input.Images)
             {
                 var extension = Path.GetExtension(image.FileName).TrimStart('.');
@@ -70,7 +73,6 @@
 
                 recipe.Images.Add(dbImage);
 
-                Directory.CreateDirectory($"{imagePath}/recipes/");
                 var path = $"{imagePath}/recipes/{dbImage.Id}.{extension}";
 
                 using (Stream fileStream = new FileStream(path, FileMode.Create))
@@ -80,6 +82,14 @@
             }
 
             await this.recipesRepository.AddAsync(recipe);
+            await this.recipesRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var recipe = this.recipesRepository.All().FirstOrDefault(x => x.Id == id);
+            this.recipesRepository.Delete(recipe);
+
             await this.recipesRepository.SaveChangesAsync();
         }
 
@@ -102,9 +112,43 @@
             return recipe;
         }
 
+        public IEnumerable<T> GetByIngredients<T>(IEnumerable<int> ingredientsIds)
+        {
+            var query = this.recipesRepository.All().AsQueryable();
+
+            foreach (var ingrediantId in ingredientsIds)
+            {
+                query = query.Where(x => x.Ingredients.Any(i => i.IngredientId == ingrediantId));
+            }
+
+            return query.To<T>().ToList();
+        }
+
         public int GetCount()
         {
             return this.recipesRepository.All().Count();
+        }
+
+        public IEnumerable<T> GetRandom<T>(int count)
+        {
+            // EF will give us random recipes, not work with Random class
+            return this.recipesRepository.All()
+                 .OrderBy(x => Guid.NewGuid())
+                 .Take(count)
+                 .To<T>().ToList();
+        }
+
+        public async Task UpdateAsync(int id, EditRecipeInputModel input)
+        {
+            var recipe = this.recipesRepository.All().FirstOrDefault(x => x.Id == id);
+            recipe.Name = input.Name;
+            recipe.Instructions = input.Instructions;
+            recipe.CookingTime = TimeSpan.FromMinutes(input.CookingTime);
+            recipe.PreparationTime = TimeSpan.FromMinutes(input.PreparationTime);
+            recipe.PortionsCount = input.PortionsCount;
+            recipe.CategoryId = input.CategoryId;
+
+            await this.recipesRepository.SaveChangesAsync();
         }
     }
 }
