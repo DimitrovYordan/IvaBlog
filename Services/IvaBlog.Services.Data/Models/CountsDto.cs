@@ -8,6 +8,5 @@
 
         public int IngredientsCount { get; set; }
 
-        public int ImagesCount { get; set; }
     }
 }
