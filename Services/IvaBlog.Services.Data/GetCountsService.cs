@@ -9,18 +9,15 @@
     public class GetCountsService : IGetCountsService
     {
         private readonly IDeletableEntityRepository<Category> categoriesRepository;
-        private readonly IRepository<Image> imagesRepository;
         private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
         private readonly IDeletableEntityRepository<Recipe> recipeRepository;
 
         public GetCountsService(
             IDeletableEntityRepository<Category> categoriesRepository,
-            IRepository<Image> imagesRepository,
             IDeletableEntityRepository<Ingredient> ingredientRepository,
             IDeletableEntityRepository<Recipe> recipeRepository)
         {
             this.categoriesRepository = categoriesRepository;
-            this.imagesRepository = imagesRepository;
             this.ingredientRepository = ingredientRepository;
             this.recipeRepository = recipeRepository;
         }
