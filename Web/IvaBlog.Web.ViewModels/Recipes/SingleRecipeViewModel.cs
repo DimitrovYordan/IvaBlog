@@ -1,6 +1,7 @@
 ﻿namespace IvaBlog.Web.ViewModels.Recipes
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using AutoMapper;
@@ -31,6 +32,8 @@
         public int PortionsCount { get; set; }
 
         public double AverageVote { get; set; }
+
+        public IEnumerable<IngredientsViewModel> Ingredients { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
