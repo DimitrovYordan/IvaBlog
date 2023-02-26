@@ -5,8 +5,8 @@
 }
 
 <form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
-    <h1>Add new recipe</h1>
-    <div asp-validation-summary="All"></div>
+    <h1>@this.ViewData["Title"]</h1>
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -50,11 +50,13 @@
     <input type="submit" class="btn btn-primary" />
 </form>
 
-@section Scripts{
+@section Scripts {
     <script>
         var ingredientIndex = 0;
         function AddMoreIngredients() {
-            $("#IngredientsContainer").append("<div class='form_contrl'>Name: <input type='text' name='Ingredients["ingredientIndex +].IngredientName' /> Quantity: <input type='text' name='Ingredients["ingredientIndex+].Quantity' />");
+            $("#IngredientsContainer").
+                append("<div class='form-control'>Name: <input type='text' name='Ingredients[" + ingredientIndex + "]
+                .IngredientName' /> Quantity: <input type='text' name='Ingredients[" + ingredientIndex + "].Quantity' /></div>");
             ingredientIndex++;
         }
     </script>
