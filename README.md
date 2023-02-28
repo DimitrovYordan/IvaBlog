@@ -7,3 +7,7 @@ Visual Studio 2022
 ASP.Net Core MVC
 
 Start with template
+
+JavaScript - JQuery
+
+AJAX
