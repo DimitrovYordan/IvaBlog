@@ -7,6 +7,5 @@
         public int CategoriesCount { get; set; }
 
         public int IngredientsCount { get; set; }
-
     }
 }
