@@ -18,7 +18,9 @@
 
         public IEnumerable<T> GetAll<T>()
         {
-            return this.ingredientRepository.All().OrderBy(x => x.Recipes.Count()).To<T>().ToList();
+            return this.ingredientRepository.All()
+                .OrderByDescending(x => x.Recipes.Count())
+                .To<T>().ToList();
         }
     }
 }
