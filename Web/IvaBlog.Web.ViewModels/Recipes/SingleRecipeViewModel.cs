@@ -31,6 +31,8 @@
 
         public int PortionsCount { get; set; }
 
+        public int CategoryRecipesCount { get; set; }
+
         public double AverageVote { get; set; }
 
         public IEnumerable<IngredientsViewModel> Ingredients { get; set; }
