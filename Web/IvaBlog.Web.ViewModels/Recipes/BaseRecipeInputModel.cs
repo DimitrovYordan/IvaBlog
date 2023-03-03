@@ -21,7 +21,7 @@
         [Display(Name = "Cooking time (in minutes)")]
         public int CookingTime { get; set; }
 
-        [Range(1, 10)]
+        [Range(1, 100)]
         public int PortionsCount { get; set; }
 
         public int CategoryId { get; set; }
