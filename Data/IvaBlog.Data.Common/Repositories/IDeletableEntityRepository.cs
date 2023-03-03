@@ -1,6 +1,7 @@
 ﻿namespace IvaBlog.Data.Common.Repositories
 {
     using System.Linq;
+    using System.Threading.Tasks;
 
     using IvaBlog.Data.Common.Models;
 
@@ -10,6 +11,8 @@
         IQueryable<TEntity> AllWithDeleted();
 
         IQueryable<TEntity> AllAsNoTrackingWithDeleted();
+
+        Task<TEntity> GetByIdWithDeletedAsync(params object[] id);
 
         void HardDelete(TEntity entity);
 
