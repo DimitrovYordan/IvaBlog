@@ -6,6 +6,7 @@
 
     using IvaBlog.Data.Models;
     using IvaBlog.Services.Mapping;
+    using IvaBlog.Web.ViewModels.Home;
 
     public class RecipeInListViewModel : IMapFrom<Recipe>, IHaveCustomMappings
     {
@@ -21,12 +22,12 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Recipe, RecipeInListViewModel>()
+            configuration.CreateMap<Recipe, IndexPageRecipeViewModel>()
                 .ForMember(x => x.ImageUrl, opt =>
-                opt.MapFrom(x =>
-                x.Images.FirstOrDefault() != null ?
-                x.Images.FirstOrDefault().ToString() :
-                "images/recipes" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
+                    opt.MapFrom(x =>
+                        x.Images.FirstOrDefault().RemoteImageUrl != null ?
+                        x.Images.FirstOrDefault().RemoteImageUrl :
+                        "/images/recipes/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
         }
     }
 }
