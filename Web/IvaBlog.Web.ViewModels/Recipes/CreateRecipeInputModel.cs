@@ -1,8 +1,6 @@
-﻿namespace IvaBlog.Web.ViewModels.RecipeViewModel
+﻿namespace IvaBlog.Web.ViewModels.Recipes
 {
     using System.Collections.Generic;
-
-    using IvaBlog.Web.ViewModels.Recipes;
 
     using Microsoft.AspNetCore.Http;
 

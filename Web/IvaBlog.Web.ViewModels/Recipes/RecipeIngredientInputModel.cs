@@ -1,4 +1,4 @@
-﻿namespace IvaBlog.Web.ViewModels.RecipeViewModel
+﻿namespace IvaBlog.Web.ViewModels.Recipes
 {
     using System.ComponentModel.DataAnnotations;
 
