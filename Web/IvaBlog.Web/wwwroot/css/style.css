@@ -5,6 +5,7 @@
 =========================================================================  
 [Table of contents]
 =========================================================================
+
 1. Typography
 2. Default Css
 3. Header Css
@@ -20,6 +21,7 @@
 13. 404 Error Page Css
 14. Sidebar Css
 15. Footer Css
+
 /*=======================================================================
 1. Typography 
 =========================================================================*/
@@ -11818,28 +11820,28 @@ footer {
         position: relative;
     }
 
-        .footer-menu ul li:after {
-            position: absolute;
-            content: ".";
-            right: -7.5px;
-            bottom: 0;
-        }
+.footer-menu ul li:after {
+    position: absolute;
+    content: ".";
+    right: -7.5px;
+    bottom: 0;
+}
 
-        .footer-menu ul li a {
-            display: block;
-            padding: 5px 25px;
-            color: #989898;
-            -webkit-transition: all 0.3s ease-in-out;
-            -moz-transition: all 0.3s ease-in-out;
-            -ms-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-        }
+.footer-menu ul li a {
+    display: block;
+    padding: 5px 25px;
+    color: #989898;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
 
-            .footer-menu ul li a:hover {
-                color: #ff4a52;
-            }
+.footer-menu ul li a:hover {
+    color: #ff4a52;
+}
 
-        .footer-menu ul li:last-child:after {
-            display: none;
-        }
+.footer-menu ul li:last-child:after {
+    display: none;
+}
