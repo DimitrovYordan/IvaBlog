@@ -10,7 +10,6 @@
     using IvaBlog.Data.Models;
     using IvaBlog.Services.Mapping;
     using IvaBlog.Web.ViewModels.Recipes;
-    using IvaBlog.Web.ViewModels.RecipeViewModel;
 
     public class RecipesService : IRecipesService
     {

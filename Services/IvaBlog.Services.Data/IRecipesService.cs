@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using IvaBlog.Web.ViewModels.Recipes;
-    using IvaBlog.Web.ViewModels.RecipeViewModel;
 
     public interface IRecipesService
     {
