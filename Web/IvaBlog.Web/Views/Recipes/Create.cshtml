@@ -1,4 +1,4 @@
-﻿@model IvaBlog.Web.ViewModels.RecipeViewModel.CreateRecipeInputModel
+﻿@model IvaBlog.Web.ViewModels.Recipes.CreateRecipeInputModel
 @{
     this.ViewData["Title"] = "Add new recipe";
     var categoryItems = this.Model.CategoriesItem.Select(x => new SelectListItem(x.Value, x.Key));
@@ -42,10 +42,9 @@
         <input asp-for="Images" class="form-control" />
         <span asp-validation-for="Images" class="text-danger"></span>
     </div>
-    <div class="form-control" id="IngredientsContainer">
+    <div id="IngredientsContainer">
         <label asp-for="Ingredients"></label>
         <a class="btn btn-success" onclick="AddMoreIngredients()">+</a>
-
     </div>
     <input type="submit" class="btn btn-primary" />
 </form>
@@ -55,8 +54,7 @@
         var ingredientIndex = 0;
         function AddMoreIngredients() {
             $("#IngredientsContainer").
-                append("<div class='form-control'>Name: <input type='text' name='Ingredients[" + ingredientIndex + "]
-                .IngredientName' /> Quantity: <input type='text' name='Ingredients[" + ingredientIndex + "].Quantity' /></div>");
+                append("<div class='form-control'>Name: <input type='text' name='Ingredients[" + ingredientIndex + "].IngredientName' />Quantity: <input type='text' name='Ingredients[" + ingredientIndex + "].Quantity' /></div>");
             ingredientIndex++;
         }
     </script>
