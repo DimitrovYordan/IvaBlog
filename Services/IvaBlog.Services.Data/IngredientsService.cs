@@ -19,7 +19,7 @@
         public IEnumerable<T> GetAll<T>()
         {
             return this.ingredientRepository.All()
-                .Where(x => x.Recipes.Count() >= 20)
+                .Where(x => x.Recipes.Count() >= 1)
                 .OrderByDescending(x => x.Recipes.Count())
                 .To<T>().ToList();
         }

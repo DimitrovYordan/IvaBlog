@@ -19,8 +19,6 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public string AddedByUserUserName { get; set; } // Auto Mapping
-
         public string ImageUrl { get; set; }
 
         public string Instructions { get; set; }

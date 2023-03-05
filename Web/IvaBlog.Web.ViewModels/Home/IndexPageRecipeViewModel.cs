@@ -19,6 +19,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
+            // Take from property ImageUrl use logic i gave you next, it's a LINQ which EF translete ot SQL query
             configuration.CreateMap<Recipe, IndexPageRecipeViewModel>()
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x =>
