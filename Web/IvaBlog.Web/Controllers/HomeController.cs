@@ -29,7 +29,7 @@
                 CategoriesCount = countsDto.CategoriesCount,
                 IngredientsCount = countsDto.IngredientsCount,
                 RecipesCount = countsDto.RecipesCount,
-                RandomRecipes = this.recipesService.GetRandom<IndexPageRecipeViewModel>(10),
+                RandomRecipes = this.recipesService.GetRandom<IndexPageRecipeViewModel>(6),
             };
 
             return this.View(viewModel);

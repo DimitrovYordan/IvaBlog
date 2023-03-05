@@ -7,7 +7,6 @@
     using IvaBlog.Data.Models;
     using IvaBlog.Services.Data;
     using IvaBlog.Web.ViewModels.Recipes;
-    using IvaBlog.Web.ViewModels.RecipeViewModel;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
@@ -97,7 +96,7 @@
 
             this.TempData["Message"] = "Recipe added successfully.";
 
-            return this.Redirect("All");
+            return this.RedirectToAction("All");
         }
 
         public IActionResult All(int id = 1)
