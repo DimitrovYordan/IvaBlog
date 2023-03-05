@@ -3,16 +3,13 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using IvaBlog.Common;
     using IvaBlog.Data.Common.Repositories;
     using IvaBlog.Data.Models;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
     [Area("Administration")]
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class CategoriesController : AdministrationController
     {
         private readonly IDeletableEntityRepository<Category> dataRepository;
