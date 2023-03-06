@@ -11,6 +11,7 @@
             options.Password.RequireUppercase = true;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequiredLength = 6;
+            options.Lockout.MaxFailedAccessAttempts = 5;
         }
     }
 }
