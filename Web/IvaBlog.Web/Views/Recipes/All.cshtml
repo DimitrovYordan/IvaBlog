@@ -10,17 +10,21 @@
 
 <h1>@this.ViewData["Title"]</h1>
 <hr />
-<div class="row">
-    @foreach (var recipe in this.Model.Recipes)
-    {
-        <div class="media col-md-4">
-            <img src="@recipe.ImageUrl" width="100" class="mr-3 img-responsive">
-            <div class="media-body">
-                <h5 class="mt-0"><a asp-action="ById" asp-route-id="@recipe.Id">@recipe.Name</a></h5>
-                @recipe.CategoryName
-            </div>
+<div class="text-center row">
+    <div class="col-md-12">
+        <div class="row">
+            @foreach (var recipe in this.Model.Recipes)
+            {
+                <div class="media col-md-4">
+                    <img class="card-img-top" src="@recipe.ImageUrl" alt="@recipe.Name">
+                    <div class="card-body">
+                        <h5 class="mt-0"><a asp-action="ById" asp-route-id="@recipe.Id">@recipe.Name</a></h5>
+                        @recipe.CategoryName
+                    </div>
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>
 <hr />
 <partial name="_PagingPartial" model="@Model" />

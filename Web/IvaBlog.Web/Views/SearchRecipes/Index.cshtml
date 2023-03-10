@@ -10,7 +10,7 @@
         @foreach (var ingredient in Model.Ingredients)
         {
             <div class="col-1 text-center">
-                <input id="ingredient_@ingredient.Id" type="checkbox" name="Ingredients" value="@ingredient.Id" class="form-control" />
+                <input id="ingredient_@ingredient.Id" type="checkbox" name="Ingredients" value="@ingredient.Id" />
                 <label for="ingredient_@ingredient.Id">@ingredient.Name</label>
             </div>
         }
