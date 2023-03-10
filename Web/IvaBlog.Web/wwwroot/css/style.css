@@ -187,7 +187,14 @@ a {
 
 img {
     max-width: 100%;
-    height: auto;
+    max-height: auto;
+    position: relative;
+    vertical-align: middle;
+    left: 50%;
+    transform: translate(-50%);
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
 }
 
 ul {
