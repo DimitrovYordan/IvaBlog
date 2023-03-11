@@ -11792,63 +11792,25 @@ ul {
 /*=======================================================================
 15. Footer Css
 =========================================================================*/
-footer {
-    padding: 10rem 0;
-    background-color: #111111;
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+footer{
+    font-size: 18px;
+    padding: 35px;
     text-align: center;
-    color: #989898;
-}
-
-    footer.ranna-bg-light {
-        background-color: #ffffff;
-        color: #646464;
-    }
-
-    footer.ranna-bg-dark {
-        background-color: #111111;
-        color: #989898;
-    }
-
-.footer-logo {
-    margin-bottom: 50px;
-}
-
-    .footer-logo a {
-        display: inline-block;
-    }
-
-.footer-menu {
-    margin-bottom: 30px;
-}
-
-    .footer-menu ul li {
-        display: inline-block;
-        margin: 0 5px;
-        position: relative;
-    }
-
-.footer-menu ul li:after {
-    position: absolute;
-    content: ".";
-    right: -7.5px;
+    right: 0;
+    left: 0;
     bottom: 0;
-}
-
-.footer-menu ul li a {
-    display: block;
-    padding: 5px 25px;
-    color: #989898;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-}
-
-.footer-menu ul li a:hover {
-    color: #ff4a52;
-}
-
-.footer-menu ul li:last-child:after {
-    display: none;
+    font-weight: bold;
+    color: black;
+    width: 100%;
+    background-image: url('../images/footer/1511275175logo069eb0e0d11963a14ea42e30136c2507.jpeg');
 }
