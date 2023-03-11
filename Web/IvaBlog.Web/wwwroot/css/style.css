@@ -11789,6 +11789,19 @@ ul {
         visibility: visible;
     }
 
+.ingredSearch {
+    transform: scale(2);
+}
+
+input[type="checkbox"] {
+    position: absolute;
+}
+
+input[type="checkbox"] ~ label {
+    padding-left: 1.4em;
+    display: inline-block;
+}
+
 /*=======================================================================
 15. Footer Css
 =========================================================================*/
