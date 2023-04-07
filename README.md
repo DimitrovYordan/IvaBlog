@@ -33,3 +33,7 @@ Only admin can change and delete recipes.
 Every user can vote and print a recipe.
 
 ![user](https://user-images.githubusercontent.com/106671609/230559160-0be6aef9-b9e0-4440-ae57-d7cfdb10f552.PNG)
+
+At the beginning, random recipes appear, and we also have statistics on how many recipes, categories and ingredients are on the site.
+
+![statistics](https://user-images.githubusercontent.com/106671609/230560011-02626bb8-6812-4cbb-ae9e-6e41e6afd63a.PNG)
