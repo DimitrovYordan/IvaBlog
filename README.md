@@ -13,4 +13,7 @@ JavaScript - JQuery
 AJAX
 
 Bootstrap
+
+There is a search by ingredients
 ![search](https://user-images.githubusercontent.com/106671609/230557524-9bece2c2-4a0a-401c-9ece-e137afcbb246.PNG)
+
