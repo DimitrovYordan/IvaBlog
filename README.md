@@ -14,6 +14,10 @@ AJAX
 
 Bootstrap
 
+There are restrictions when registering and creating a password.
+
+![register](https://user-images.githubusercontent.com/106671609/230560266-84e6e29f-70b2-45a6-b265-8eea40db012d.PNG)
+
 There is a search by ingredients
 
 ![search](https://user-images.githubusercontent.com/106671609/230557524-9bece2c2-4a0a-401c-9ece-e137afcbb246.PNG)
